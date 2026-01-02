@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Last Penny Büklüm • Menü</title>
+  <meta name="theme-color" content="#111111" />
+  <style>
+    :root{
+      --bg:#0b0b0c; --card:#131316; --muted:#a7a7ad; --text:#f2f2f4;
+      --line:#24242a; --chip:#1b1b20; --ok:#22c55e; --bad:#ef4444;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --r:16px;
+      --pad: 14px;
+      --max: 860px;
+      font-synthesis-weight:none;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; background:linear-gradient(180deg,#070708 0%,#0b0b0c 55%,#070708 100%);
+      color:var(--text);
+      font: 15px/1.35 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding: 12px var(--pad) 110px}
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(12px);
+      background:rgba(11,11,12,.75);
+      border-bottom:1px solid rgba(36,36,42,.7);
+    }
+    .top{
+      max-width:var(--max); margin:0 auto;
+      padding: 12px var(--pad);
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
+    }
+    .brand{display:flex; flex-direction:column; gap:2px}
+    .brand h1{font-size:16px; margin:0; letter-spacing:.2px}
+    .brand p{margin:0; color:var(--muted); font-size:12px}
+    .tabs{
+      max-width:var(--max); margin:0 auto; padding: 0 var(--pad) 10px;
+      display:flex; gap:8px; overflow:auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .tab{
+      border:1px solid var(--line); background:rgba(19,19,22,.6);
+      color:var(--text); padding:10px 12px; border-radius:999px;
+      font-size:13px; white-space:nowrap;
+    }
+    .tab[aria-selected="true"]{background:var(--text); color:#111; border-color:transparent}
+    .card{
+      background:rgba(19,19,22,.72); border:1px solid rgba(36,36,42,.85);
+      border-radius:var(--r); box-shadow:var(--shadow);
+    }
+    .searchRow{padding:12px; display:grid; gap:10px}
+    .searchRow input{
+      width:100%; padding:12px 12px; border-radius:12px;
+      border:1px solid var(--line); background:#0f0f12; color:var(--text);
+      outline:none;
+    }
+    .chips{display:flex; gap:8px; flex-wrap:wrap}
+    .chip{
+      border:1px solid var(--line); background:var(--chip);
+      padding:9px 10px; border-radius:999px; font-size:13px;
+      color:var(--text); display:flex; gap:8px; align-items:center;
+    }
+    .chip input{accent-color: var(--text)}
+    .section{margin-top:14px}
+    details{
+      border:1px solid rgba(36,36,42,.85);
+      border-radius:var(--r);
+      background:rgba(19,19,22,.55);
+      overflow:hidden;
+    }
+    summary{
+      cursor:pointer; list-style:none;
+      padding:14px 14px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .sumLeft{display:flex; flex-direction:column; gap:2px}
+    .sumTitle{font-weight:650}
+    .sumMeta{color:var(--muted); font-size:12px}
+    .items{border-top:1px solid rgba(36,36,42,.8)}
+    .item{
+      padding:14px;
+      display:grid;
+      grid-template-columns: 1fr auto;
+      gap:10px;
+      border-top:1px solid rgba(36,36,42,.65);
+    }
+    .item:first-child{border-top:none}
+    .nameRow{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+    .name{font-weight:650}
+    .desc{color:var(--muted); font-size:13px; margin-top:4px}
+    .badges{display:flex; gap:6px; flex-wrap:wrap}
+    .badge{
+      font-size:12px; padding:4px 8px; border-radius:999px;
+      border:1px solid rgba(36,36,42,.9);
+      background:rgba(27,27,32,.9);
+      color:var(--text);
+    }
+    .badge.ok{border-color:rgba(34,197,94,.35); background:rgba(34,197,94,.12); color:#bff3cf}
+    .badge.off{border-color:rgba(239,68,68,.35); background:rgba(239,68,68,.10); color:#ffd0d0}
+    .price{font-weight:700; white-space:nowrap}
+    .footerBar{
+      position:fixed; left:0; right:0; bottom:0; z-index:60;
+      background:rgba(11,11,12,.85); backdrop-filter: blur(12px);
+      border-top:1px solid rgba(36,36,42,.75);
+    }
+    .footerInner{
+      max-width:var(--max); margin:0 auto;
+      padding:12px var(--pad);
+      display:flex; justify-content:space-between; gap:10px; align-items:center;
+      color:var(--muted); font-size:12px;
+    }
+    .btn{
+      border:1px solid var(--line); background:rgba(19,19,22,.7);
+      padding:10px 12px; border-radius:12px; color:var(--text);
+      font-size:13px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="top">
+    <div class="brand">
+      <h1>Last Penny Büklüm</h1>
+      <p>Kavaklıdere • Büklüm Cd. 41/A • (0312) 926 07 21</p>
+    </div>
+    <button class="btn" id="langBtn" type="button">TR / EN</button>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Menü Sekmeleri">
+    <button class="tab" role="tab" aria-selected="true" data-view="menu">Menü</button>
+    <button class="tab" role="tab" aria-selected="false" data-view="deals">Kampanyalar</button>
+    <button class="tab" role="tab" aria-selected="false" data-view="events">Etkinlik</button>
+    <button class="tab" role="tab" aria-selected="false" data-view="info">Bilgi</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <!-- MENU VIEW -->
+  <section id="view-menu" class="view">
+    <div class="card searchRow">
+      <input id="q" placeholder="Ara: burger, ipa, tavuk, kahve..." autocomplete="off" />
+      <div class="chips">
+        <label class="chip"><input id="onlyAvail" type="checkbox" checked /> Sadece mevcut olanlar</label>
+        <label class="chip"><input id="veg" type="checkbox" /> Vejetaryen</label>
+        <label class="chip"><input id="spicy" type="checkbox" /> Acı</label>
+      </div>
+    </div>
+
+    <div id="menuRoot" class="section"></div>
+  </section>
+
+  <!-- DEALS VIEW -->
+  <section id="view-deals" class="view" style="display:none">
+    <div class="card" style="padding:14px">
+      <div style="font-weight:650; margin-bottom:6px">Kampanyalar</div>
+      <div style="color:var(--muted); font-size:13px">
+        Bu alanı “Pazartesi öğrenci indirimi”, “19:00’a kadar pint”, vb. kampanyalar için kullanın.
+      </div>
+      <div style="margin-top:10px; display:grid; gap:10px">
+        <div class="card" style="padding:12px; border-radius:14px">
+          <div style="display:flex; justify-content:space-between; gap:10px">
+            <div>
+              <div style="font-weight:650">Pazartesi</div>
+              <div style="color:var(--muted); font-size:13px">Üniversite öğrencilerine Efes Pint yarı fiyatına</div>
+            </div>
+            <div style="text-align:right">
+              <div style="text-decoration:line-through; color:var(--muted)">200 ₺</div>
+              <div style="font-weight:750">100 ₺</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVENTS VIEW -->
+  <section id="view-events" class="view" style="display:none">
+    <div class="card" style="padding:14px">
+      <div style="font-weight:650; margin-bottom:6px">Etkinlikler</div>
+      <div style="color:var(--muted); font-size:13px">
+        Canlı müzik / DJ / quiz night gibi etkinlikleri burada tarih-saat ile listeleyin.
+      </div>
+      <div style="margin-top:10px; color:var(--muted); font-size:13px">Şu an örnek içerik.</div>
+    </div>
+  </section>
+
+  <!-- INFO VIEW -->
+  <section id="view-info" class="view" style="display:none">
+    <div class="card" style="padding:14px">
+      <div style="font-weight:650; margin-bottom:10px">İletişim</div>
+      <div style="display:grid; gap:8px; color:var(--muted); font-size:13px">
+        <div><b style="color:var(--text)">Adres:</b> Kavaklıdere Mah. Büklüm Cd. 41/A, Çankaya / Ankara</div>
+        <div><b style="color:var(--text)">Telefon:</b> (0312) 926 07 21</div>
+        <div><b style="color:var(--text)">Wi-Fi:</b> (opsiyonel)</div>
+        <div><b style="color:var(--text)">Alerjen:</b> (opsiyonel uyarılar)</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="footerBar">
+  <div class="footerInner">
+    <div>Fiyatlar değişebilir • Son güncelleme: <span id="updatedAt"></span></div>
+    <button class="btn" type="button" id="topBtn">↑ Yukarı</button>
+  </div>
+</div>
+
+<script>
+  // ---- SAMPLE DATA (replace with real menu) ----
+  const MENU = [
+    {
+      id: "draft",
+      titleTR: "Fıçı Bira",
+      titleEN: "Draft Beer",
+      items: [
+        { nameTR:"Efes Pilsen Pint", nameEN:"Efes Pilsen Pint", price:220, descTR:"", descEN:"", available:true, tags:["beer"] },
+        { nameTR:"İrish Red Ale Pint", nameEN:"Irish Red Ale Pint", price:200, descTR:"", descEN:"", available:true, tags:["beer"] },
+        { nameTR:"Stella Artois Pint", nameEN:"Stella Artois Pint", price:300, descTR:"", descEN:"", available:false, tags:["beer"] }
+      ]
+    },
+    {
+      id: "sig",
+      titleTR: "Penny Signature",
+      titleEN: "Signature Cocktails",
+      items: [
+        { nameTR:"Strawberry Collins", nameEN:"Strawberry Collins", price:580, descTR:"Malfy cin, çilek, soda, nane", descEN:"Malfy gin, strawberry, soda, mint", available:true, tags:["cocktail"] },
+        { nameTR:"London Refresher", nameEN:"London Refresher", price:580, descTR:"Malfy cin, salatalık, fesleğen, limon, şurup", descEN:"Malfy gin, cucumber, basil, lemon, syrup", available:false, tags:["cocktail"] }
+      ]
+    },
+    {
+      id: "mains",
+      titleTR: "Doyuranlar",
+      titleEN: "Mains",
+      items: [
+        { nameTR:"Penny Burger", nameEN:"Penny Burger", price:520, descTR:"150gr köfte, karamelize soğan, soslar, bravas", descEN:"150g patty, caramelized onion, sauces, bravas", available:true, tags:["food"] },
+        { nameTR:"Fish & Chips", nameEN:"Fish & Chips", price:550, descTR:"Mezgit, salsa & tartar, bravas", descEN:"Hake, salsa & tartar, bravas", available:true, tags:["food"] }
+      ]
+    }
+  ];
+
+  // ---- State ----
+  let LANG = "TR";
+
+  const qEl = document.getElementById("q");
+  const onlyAvailEl = document.getElementById("onlyAvail");
+  const vegEl = document.getElementById("veg");
+  const spicyEl = document.getElementById("spicy");
+  const menuRoot = document.getElementById("menuRoot");
+  const updatedAt = document.getElementById("updatedAt");
+
+  updatedAt.textContent = new Date().toLocaleDateString("tr-TR", { year:"numeric", month:"long", day:"numeric" });
+
+  function fmtPrice(n){ return new Intl.NumberFormat("tr-TR").format(n) + " ₺"; }
+
+  function matchesFilters(item, q){
+    if (onlyAvailEl.checked && !item.available) return false;
+
+    // optional tags:
+    if (vegEl.checked && !(item.tags||[]).includes("veg")) return false;
+    if (spicyEl.checked && !(item.tags||[]).includes("spicy")) return false;
+
+    if (!q) return true;
+    const hay = [
+      item.nameTR, item.nameEN, item.descTR, item.descEN, ...(item.tags||[])
+    ].join(" ").toLowerCase();
+    return hay.includes(q.toLowerCase());
+  }
+
+  function render(){
+    const q = qEl.value.trim();
+    menuRoot.innerHTML = "";
+
+    MENU.forEach(cat => {
+      const visibleItems = cat.items.filter(it => matchesFilters(it, q));
+      const total = visibleItems.length;
+      const availableCount = visibleItems.filter(i => i.available).length;
+
+      // Hide empty categories when searching
+      if (q && total === 0) return;
+
+      const d = document.createElement("details");
+      d.open = !q; // when searching, keep it compact
+      const title = (LANG==="TR" ? cat.titleTR : cat.titleEN);
+
+      d.innerHTML = `
+        <summary>
+          <div class="sumLeft">
+            <div class="sumTitle">${title}</div>
+            <div class="sumMeta">${total} ürün • ${availableCount} mevcut</div>
+          </div>
+          <div style="color:var(--muted)">▾</div>
+        </summary>
+        <div class="items"></div>
+      `;
+
+      const itemsWrap = d.querySelector(".items");
+
+      visibleItems.forEach(item => {
+        const name = (LANG==="TR" ? item.nameTR : item.nameEN);
+        const desc = (LANG==="TR" ? item.descTR : item.descEN);
+        const badges = [];
+        badges.push(item.available
+          ? `<span class="badge ok">Mevcut</span>`
+          : `<span class="badge off">Mevcut değil</span>`
+        );
+
+        // show a couple of optional badges based on tags
+        if ((item.tags||[]).includes("veg")) badges.push(`<span class="badge">Vejetaryen</span>`);
+        if ((item.tags||[]).includes("spicy")) badges.push(`<span class="badge">Acı</span>`);
+
+        const row = document.createElement("div");
+        row.className = "item";
+        row.innerHTML = `
+          <div>
+            <div class="nameRow">
+              <div class="name">${name}</div>
+              <div class="badges">${badges.join("")}</div>
+            </div>
+            ${desc ? `<div class="desc">${desc}</div>` : ``}
+          </div>
+          <div class="price">${fmtPrice(item.price)}</div>
+        `;
+        itemsWrap.appendChild(row);
+      });
+
+      menuRoot.appendChild(d);
+      menuRoot.appendChild(document.createElement("div")).style.height = "10px";
+    });
+  }
+
+  [qEl, onlyAvailEl, vegEl, spicyEl].forEach(el => el.addEventListener("input", render));
+  render();
+
+  // Tabs
+  document.querySelectorAll(".tab").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-selected","false"));
+      btn.setAttribute("aria-selected","true");
+      const view = btn.dataset.view;
+      document.querySelectorAll(".view").forEach(v => v.style.display="none");
+      document.getElementById("view-" + view).style.display = "block";
+      window.scrollTo({top:0, behavior:"smooth"});
+    });
+  });
+
+  // Language toggle (simple)
+  document.getElementById("langBtn").addEventListener("click", () => {
+    LANG = (LANG==="TR" ? "EN" : "TR");
+    document.getElementById("langBtn").textContent = (LANG==="TR" ? "TR / EN" : "EN / TR");
+    render();
+  });
+
+  document.getElementById("topBtn").addEventListener("click", () => {
+    window.scrollTo({top:0, behavior:"smooth"});
+  });
+</script>
+</body>
+</html>
